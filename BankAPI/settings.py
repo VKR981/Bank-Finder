@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'w61vxk#w()h_p0vy4k5+5@611j7=sx9_r@7%0cz9&!n#0i$#=+'
+# SECRET_KEY = 'w61vxk#w()h_p0vy4k5+5@611j7=sx9_r@7%0cz9&!n#0i$#=+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,6 +53,7 @@ MIDDLEWARE = [
     #additions
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     #default
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -86,16 +87,16 @@ WSGI_APPLICATION = 'BankAPI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bq1dnczj5uzxsbcr4iae',
-        'USER': 'ut1hlcd3g1dcxccjvttb',
-        'PASSWORD': 'DUY1yah10flctJyhb9WH',
-        'HOST': 'bq1dnczj5uzxsbcr4iae-postgresql.services.clever-cloud.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'bq1dnczj5uzxsbcr4iae',
+#         'USER': 'ut1hlcd3g1dcxccjvttb',
+#         'PASSWORD': 'DUY1yah10flctJyhb9WH',
+#         'HOST': 'bq1dnczj5uzxsbcr4iae-postgresql.services.clever-cloud.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -157,8 +158,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'frontend','bank-finder-react', "build", "s
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend','bank-finder-react', "build", "static"),os.path.join(BASE_DIR, 'frontend','bank-finder-react', "build")]
 
 import dj_database_url 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+DATABASES = {'default': dj_database_url.config()}
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
