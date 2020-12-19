@@ -162,4 +162,4 @@ DATABASES = {'default': dj_database_url.config()}
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = ['bank-finder-alpha.herokuapp.com']
+ALLOWED_HOSTS = ['bank-finder-alpha.herokuapp.com','127.0.0.1']
